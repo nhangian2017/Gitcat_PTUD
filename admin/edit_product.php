@@ -57,7 +57,7 @@ $categoriesList = $category->getAll();
             <form action="edit_product.php?id=<?= $productUpdate['id'] ?>" method="post" enctype="multipart/form-data">
                 <input type="text" hidden name="id" style="display: none;" value="<?= $productUpdate['id'] ?>">
                 <label for="name">Tên sản phẩm</label>
-                <input type="text" id="name" name="name" placeholder="Tên sản phẩm.." value="<?= $productUpdate['name'] ?>">
+                <input type="text" id="name" name="name" placeholder="Tên sản phẩm.." value="<?= $productUpdate['name'] ?>" required>
 
                 <label for="originalPrice">Giá gốc</label>
                 <input type="number" id="originalPrice" name="originalPrice" value="<?= $productUpdate['originalPrice'] ?>" min="1000">
