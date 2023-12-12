@@ -29,6 +29,20 @@ $categoriesList = $category->getAll();
     <script src="https://use.fontawesome.com/2145adbb48.js"></script>
     <script src="https://kit.fontawesome.com/a42aeb5b72.js" crossorigin="anonymous"></script>
     <title>Chỉnh sửa sản phẩm</title>
+
+    <script>
+        function validatePrices() {
+            var originalPrice = document.getElementById('originalPrice').value;
+            var promotionPrice = document.getElementById('promotionPrice').value;
+
+            if (parseFloat(promotionPrice) >= parseFloat(originalPrice)) {
+                alert('Giá khuyến mãi phải bé hơn giá gốc.');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </head>
 
 <body>
@@ -54,19 +68,20 @@ $categoriesList = $category->getAll();
         }
         ?>
         <div class="form-add">
-            <form action="edit_product.php?id=<?= $productUpdate['id'] ?>" method="post" enctype="multipart/form-data">
+            <form action="edit_product.php?id=<?= $productUpdate['id'] ?>" method="post" enctype="multipart/form-data" onsubmit="return validatePrices()">
                 <input type="text" hidden name="id" style="display: none;" value="<?= $productUpdate['id'] ?>">
+
                 <label for="name">Tên sản phẩm</label>
                 <input type="text" id="name" name="name" placeholder="Tên sản phẩm.." value="<?= $productUpdate['name'] ?>" required>
 
                 <label for="originalPrice">Giá gốc</label>
-                <input type="number" id="originalPrice" name="originalPrice" value="<?= $productUpdate['originalPrice'] ?>" min="1000">
+                <input type="number" id="originalPrice" name="originalPrice" value="<?= $productUpdate['originalPrice'] ?>" min="1000" required>
 
                 <label for="promotionPrice">Giá khuyến mãi</label>
-                <input type="number" id="promotionPrice" name="promotionPrice" value="<?= $productUpdate['promotionPrice'] ?>" min="900">
-
+                <input type="number" id="promotionPrice" name="promotionPrice" value="<?= $productUpdate['promotionPrice'] ?>" min="900" required>
+               
                 <label for="image">Hình ảnh</label>
-                <img src="uploads/<?= $productUpdate['image'] ?>" style="height: 200px;" id="image"> <br>
+                <img src="uploads/<?= $productUpdate['image'] ?>" style="height: 200px;" id="image" required> <br>
 
                 <label for="imageNew">Chọn hình ảnh mới</label>
                 <input type="file" id="imageNew" name="image">
@@ -83,7 +98,7 @@ $categoriesList = $category->getAll();
                 </select>
 
                 <label for="qty">Số lượng</label>
-                <input type="number" id="qty" name="qty" value="<?= $productUpdate['qty'] ?>" min="1">
+                <input type="number" id="qty" name="qty" value="<?= $productUpdate['qty'] ?>" min="1" required>
 
                 <label for="des">Mô tả</label>
                 <textarea name="des" id="des" cols="30" rows="10"><?= $productUpdate['des'] ?></textarea>
