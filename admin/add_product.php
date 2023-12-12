@@ -27,6 +27,20 @@ $categoriesList = $category->getAll();
     <script src="https://use.fontawesome.com/2145adbb48.js"></script>
     <script src="https://kit.fontawesome.com/a42aeb5b72.js" crossorigin="anonymous"></script>
     <title>Thêm mới sản phẩm</title>
+
+    <script>
+        function validatePrices() {
+            var originalPrice = document.getElementById('originalPrice').value;
+            var promotionPrice = document.getElementById('promotionPrice').value;
+
+            if (parseFloat(promotionPrice) >= parseFloat(originalPrice)) {
+                alert('Giá khuyến mãi phải bé hơn giá gốc.');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </head>
 
 <body>
@@ -48,7 +62,7 @@ $categoriesList = $category->getAll();
     <div class="container">
         <p style="color: green;"><?= !empty($result) ? $result : '' ?></p>
         <div class="form-add">
-            <form action="add_product.php" method="post" enctype="multipart/form-data">
+            <form action="add_product.php" method="post" enctype="multipart/form-data" onsubmit="return validatePrices()">
                 <label for="name">Tên sản phẩm</label>
                 <input type="text" id="name" name="name" placeholder="Tên sản phẩm.." required>
 
@@ -56,7 +70,7 @@ $categoriesList = $category->getAll();
                 <input type="number" id="originalPrice" name="originalPrice" placeholder="Giá.." required min="1">
 
                 <label for="promotionPrice">Giá khuyến mãi</label>
-                <input type="number" id="promotionPrice" name="promotionPrice" placeholder="Giá.." required min="1">
+                <input type="number" id="promotionPrice" name="promotionPrice" placeholder="Giá.." required min="0">
 
                 <label for="image">Hình ảnh</label>
                 <input type="file" id="image" name="image" required>
